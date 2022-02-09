@@ -14,6 +14,15 @@ def read_file() :
     return name + "@" + host + "$"
     open_file.close()
 
+def read_path():
+    open_file = open("file.txt", "r")
+    temp = open_file.readline()
+    temp = open_file.readline()
+    path = open_file.readline()
+    path = path[:-1]
+    return path
+    open_file.close()
+
 def echo(string1) :
     return string1
 
