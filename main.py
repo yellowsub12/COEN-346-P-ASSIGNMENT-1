@@ -36,13 +36,12 @@ def find(pattern, path):
         for name in files:
             if fnmatch.fnmatch(name, pattern):
                 result.append(os.path.join(root, name))
-    print(result)
     return result
 
-find('*.exe', '/home/yaqub/HelloWorld/')
 
 #actual loop where commands are given until 'exit' is typed to stop the program
 while loopInt>0:
+    read_path()
     shell_name = name_host()
     userInput = input(shell_name + " ")
     if userInput == "exit":
@@ -52,9 +51,14 @@ while loopInt>0:
     if ".exe" in userInput: 
         pattern = "(.*?).exe"
         substring = re.search(pattern, userInput).group(1)
-        substringA = "./"+substring+".exe"
-        print(substringA)
-        userInputstringA = re.sub(r'->', '>', substringA)
+        substringA = substring+".exe"
+        if find(substringA, read_path()) == "[]":
+                print("This executable file hasn't been found in the path! Start again!")
+                continue
+        elif find(substringA, read_path()) != "[]":
+                print("Executable file provided found at " + find(substring, read_path()))
+                substringB = find(substringA, read_path()) 
+        userInputstringA = re.sub(r'->', '>', substringB)
         os.system(userInputstringA)
     
 
@@ -63,7 +67,3 @@ while loopInt>0:
         userInputstring = re.sub(r'->', '>', userInput)
         os.system(userInputstring)
 
-
-
-#print(shutil.which("notepad.exe"))
-#os.startfile(shutil.which("notepad.exe"))
