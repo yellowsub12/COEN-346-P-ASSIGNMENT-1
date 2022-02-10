@@ -1,7 +1,6 @@
 #the find(pattern, path) function is a snippet code from StackOverflow
 
 import os
-import pwd
 import shutil
 import re
 import fnmatch
@@ -12,11 +11,8 @@ def name_host() :
     open_file = open("file.txt", "r")
     name = open_file.readline()
     host = open_file.readline()
-    path = open_file.readline()
     name = name[:-1]
     host = host[:-1]
-    path = path[:-1]
-    prompt = name + host
     return name + "@" + host + "$"
     open_file.close()
 
@@ -25,9 +21,40 @@ def read_path():
     temp = open_file.readline()
     temp = open_file.readline()
     path = open_file.readline()
-    path = path[:-1]
+    path = path[5::]
     return path
     open_file.close()
+
+def sort_path():
+    string_path = read_path()
+    count = 0
+    for char in string_path:
+        if char == ",":
+            count = count + 1
+    count = count + 1
+    path_array = [0] * count
+    j = 0
+    h = 0
+    i = 0
+    first_char = string_path[0]
+    for letter in string_path:
+        if letter == "," and i == 0:
+            path_array[j] = first_char + string_path[:-1]
+            h = i
+            i = i + 1
+            j = j + 1
+        elif letter == "," :
+            path_array[j] = string_path[h+1:i]
+            h = i
+            i = i + 1
+            j = j + 1
+        else:
+            i = i + 1
+            continue
+
+    path_array[j] = string_path[h+1:i]
+    return str(path_array[2])
+
 
 #This function finds an .exe file in a given path/directory, warning, may give too many results
 def find(pattern, path):
@@ -41,8 +68,9 @@ def find(pattern, path):
 
 #actual loop where commands are given until 'exit' is typed to stop the program
 while loopInt>0:
-    read_path()
     shell_name = name_host()
+    os.system("cd " + sort_path())
+    print(read_path()) #to remove for submission. Only here for testing purpose
     userInput = input(shell_name + " ")
     if userInput == "exit":
         break
