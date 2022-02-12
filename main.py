@@ -59,15 +59,13 @@ while loopInt>0:
             if find(substringA, value[i]) != []:
                 print("Executable file provided found at " + str(find(substringA, value[i])))
                 os.chdir(value[i])
-                print(os.getcwd())
                 userInputstringA = re.sub(r'->', '>', value[i])
                 os.system(userInputstringA)
-                x=0
-                break
-            i+=1   
-            if x==0:
-                os.system('"'+substringA+'"') 
-                x=1
+            else: 
+                i+=1   
+                if i==len(value):
+                    os.system(substringA) 
+                    x=1
              
  #      userInputstringA = re.sub(r'->', '>', value[i])
  #      os.system(userInputstringA)
