@@ -3,7 +3,6 @@ import re
 import fnmatch
 userInput = str
 loopInt=1
-x=1
 
 absolute_path = os.getcwd()
 
@@ -65,7 +64,6 @@ while loopInt>0:
                 i+=1   
                 if i==len(value):
                     os.system(substringA) 
-                    x=1
              
  #      userInputstringA = re.sub(r'->', '>', value[i])
  #      os.system(userInputstringA)
