@@ -1,29 +1,30 @@
 import os
-import shutil
 import re
 import fnmatch
-import pwd
 userInput = str
 loopInt=1
+
+absolute_path = os.getcwd()
+
 def name_host() :
-    open_file = open("file.txt", "r")
+    open_file = open(absolute_path + "/file.txt", "r")
     name = open_file.readline()
     host = open_file.readline()
     name = name[:-1]
     host = host[:-1]
-    return name + "@" + host + "$"
     open_file.close()
+    return name + "@" + host + "$"
+    
 
 def read_path():
-    open_file = open("file.txt", "r")
+    open_file = open(absolute_path + "/file.txt", "r")
     temp = open_file.readline()
     temp = open_file.readline()
     path = open_file.readline()
     path = path[5::]
-    return path
     open_file.close()
-
-
+    return path
+    
 
 #This function finds an .exe file in a given path/directory, warning, may give too many results
 def find(pattern, path):
@@ -36,15 +37,13 @@ def find(pattern, path):
 
 shell_name = name_host()
 path_string = read_path()
-
+value = path_string.split(',')
 
 #actual loop where commands are given until 'exit' is typed to stop the program
 while loopInt>0:
     userInput = input(shell_name + " ")
-    value = path_string.split(',')
     if userInput == "exit":
         break
-
 
     if ".exe" in userInput: 
         pattern = "(.*?).exe"
@@ -61,9 +60,11 @@ while loopInt>0:
             i+=1        
  #      userInputstringA = re.sub(r'->', '>', value[i])
  #      os.system(userInputstringA)
+
+    elif "cd" in userInput:
+        userInputstring = re.sub(r'->', '>', userInput)
+        os.chdir(userInputstring.split()[1])
     
-
-
     else:
         userInputstring = re.sub(r'->', '>', userInput)
         os.system(userInputstring)
