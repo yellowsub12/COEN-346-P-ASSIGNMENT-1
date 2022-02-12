@@ -2,7 +2,6 @@ import os
 import re
 import fnmatch
 import threading
-from test2 import echo
 
 userInput = str
 loopInt=1
@@ -63,10 +62,24 @@ while loopInt>0:
                 os.chdir(value[i])
                 userInputstringA = re.sub(r'->', '>', value[i])
                 os.system(userInputstringA)
+                if "&" in userInput:
+                    t1 = threading.Thread(target=os.system, args=(substringA,))
+                    t1.start()
+                else:
+                    t2 = threading.Thread(target=os.system, args=(substringA,))
+                    t2.start()
+                    t2.join()
+                break
             else: 
                 i+=1   
-                if i==len(value):
-                    os.system(substringA) 
+                if i==len(value): 
+                    if "&" in userInput:
+                        t1 = threading.Thread(target=os.system, args=(substringA,))
+                        t1.start()
+                    else:
+                        t2 = threading.Thread(target=os.system, args=(substringA,))
+                        t2.start()
+                        t2.join()
              
  #      userInputstringA = re.sub(r'->', '>', value[i])
  #      os.system(userInputstringA)
@@ -77,22 +90,12 @@ while loopInt>0:
     
     else:
         userInputstring = re.sub(r'->', '>', userInput)
-        os.system(userInputstring)
+        if "&" in userInput:
+            t1 = threading.Thread(target=os.system, args=(userInputstring,))
+            t1.start()
+        else:
+            t2 = threading.Thread(target=os.system, args=(userInputstring,))
+            t2.start()
+            t2.join()
 
-if __name__ == "__main__":
-
-    # creating threads
-    t1 = threading.Thread(target=name_host, args=(10,))
-    t2 = threading.Thread(target=read_path, args=(10,))
-    t3 = threading.Thread(target=echo, args=(10,))
-    
-    # starting threads
-    t1.start()
-    t2.start()
-    t3.start()
-  
-    # wait until all threads finish
-    t1.join()
-    t2.join()
-    t3.join()
   
