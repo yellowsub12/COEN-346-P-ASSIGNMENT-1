@@ -66,7 +66,6 @@ while loopInt>0:
 
     elif findWholeWord('cd')(userInput) != None:
         userInputstring = re.sub(r'->', '>', userInput)
-        userInputstringA = re.sub(r'\W.', ' ', userInputstring)
         os.chdir(userInputstringA.split()[1])
     
     else:
