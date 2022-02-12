@@ -3,6 +3,7 @@ import re
 import fnmatch
 userInput = str
 loopInt=1
+x=1
 
 absolute_path = os.getcwd()
 
@@ -52,6 +53,7 @@ while loopInt>0:
         pattern = "(.*?).exe"
         substring = re.search(pattern, userInput).group(1)
         substringA = substring+".exe"
+
         i=0
         while i<len(value):
             if find(substringA, value[i]) != []:
@@ -60,7 +62,13 @@ while loopInt>0:
                 print(os.getcwd())
                 userInputstringA = re.sub(r'->', '>', value[i])
                 os.system(userInputstringA)
-            i+=1        
+                x=0
+                break
+            i+=1   
+            if x==0:
+                os.system('"'+substringA+'"') 
+                x=1
+             
  #      userInputstringA = re.sub(r'->', '>', value[i])
  #      os.system(userInputstringA)
 
