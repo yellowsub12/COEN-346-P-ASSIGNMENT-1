@@ -35,6 +35,9 @@ def find(pattern, path):
                 result.append(os.path.join(root, name))
     return result
 
+def findWholeWord(w):
+    return re.compile(r'\b({0})\b'.format(w), flags=re.IGNORECASE).search
+
 shell_name = name_host()
 path_string = read_path()
 value = path_string.split(',')
@@ -61,9 +64,10 @@ while loopInt>0:
  #      userInputstringA = re.sub(r'->', '>', value[i])
  #      os.system(userInputstringA)
 
-    elif "cd" in userInput:
+    elif findWholeWord('cd')(userInput) != None:
         userInputstring = re.sub(r'->', '>', userInput)
-        os.chdir(userInputstring.split()[1])
+        userInputstringA = re.sub(r'\W.', ' ', userInputstring)
+        os.chdir(userInputstringA.split()[1])
     
     else:
         userInputstring = re.sub(r'->', '>', userInput)
