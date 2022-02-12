@@ -1,6 +1,9 @@
 import os
 import re
 import fnmatch
+import threading
+from test2 import echo
+
 userInput = str
 loopInt=1
 
@@ -75,3 +78,21 @@ while loopInt>0:
     else:
         userInputstring = re.sub(r'->', '>', userInput)
         os.system(userInputstring)
+
+if __name__ == "__main__":
+
+    # creating threads
+    t1 = threading.Thread(target=name_host, args=(10,))
+    t2 = threading.Thread(target=read_path, args=(10,))
+    t3 = threading.Thread(target=echo, args=(10,))
+    
+    # starting threads
+    t1.start()
+    t2.start()
+    t3.start()
+  
+    # wait until all threads finish
+    t1.join()
+    t2.join()
+    t3.join()
+  
