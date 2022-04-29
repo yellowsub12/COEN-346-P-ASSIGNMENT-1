@@ -1,2 +1,2 @@
-# COEN-346-P-ASSIGNMENT-1
-A mini command line interpreter that can take several inputs.
+# Command-Line Interface 
+A Command-Line Interface that simulates basic Bash functions and can take in several inputs.
